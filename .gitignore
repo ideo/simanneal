@@ -8,3 +8,4 @@ htmlcov
 cython
 .coverage
 .cache
+.idea

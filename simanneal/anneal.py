@@ -58,7 +58,9 @@ class Annealer(object):
             raise ValueError('No valid values supplied for neither \
             initial_state nor load_state')
 
-        signal.signal(signal.SIGINT, self.set_user_exit)
+        if __name__ == '__main__':
+            # RC EDIT: only fire this signal in main thread (e.g., _not_ in streamlit)
+            signal.signal(signal.SIGINT, self.set_user_exit)
 
     def save_state(self, fname=None):
         """Saves state to pickle"""
