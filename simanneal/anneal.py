@@ -250,6 +250,10 @@ class Annealer(object):
             E = self.energy()
             prevState = self.copy_state(self.state)
             prevEnergy = E
+            if not self.best_state:
+                self.best_state = self.copy_state(self.state)
+            if not self.best_energy:
+                self.best_energy = E
             accepts, improves = 0, 0
             for _ in range(steps):
                 dE = self.move()
@@ -267,6 +271,9 @@ class Annealer(object):
                         improves += 1
                     prevState = self.copy_state(self.state)
                     prevEnergy = E
+                    if E < self.best_energy:
+                        self.best_state = self.copy_state(self.state)
+                        self.best_energy = E
             return E, float(accepts) / steps, float(improves) / steps
 
         step = 0
